@@ -38,16 +38,4 @@ typedef struct	s_Commande
   int		local;
 }		Commande;
 
-int		rcvControl(int sock);
-char		*enMinuscule(char *ligne);
-Commande	*analyseCommande(char *ligne);
-void		sendControl(int ctr, char *txt, int sock);
-int		idCommande(Commande *cmd);
-void		execLocal(Commande *cmd);
-int		execDistant(Commande * cmd, int sock);
-int		execDistantPwd(int sock);
-int		execDistantLs(int sock);
-int		execDistantCd(int sock, char * dir);
-void		help();
-
 #endif //FTP_TOOLS_H

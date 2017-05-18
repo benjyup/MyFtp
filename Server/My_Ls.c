@@ -3,15 +3,16 @@
 //
 
 #include "Server.h"
-#include "Tools.h"
+#include "Commande.h"
 
-void	my_Ls(t_Server *Serv, Commande_Locale *cmd_locale)
+void	my_Ls(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
   FILE		*ls;
   char		freadbuff[BUFSIZE];
 
+  (void)(cmd);
   (void)(cmd_locale);
-  if ((ls = popen("ls", "r")) == NULL)
+  if ((ls = popen("ls -l", "r")) == NULL)
     {
       printf("Error in popen\n");
       exit(1);

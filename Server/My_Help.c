@@ -3,12 +3,13 @@
 //
 
 #include "Server.h"
-#include "Tools.h"
+#include "Commande.h"
 
-void	my_Help(t_Server *Serv, Commande_Locale *cmd_locale)
+void	my_Help(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
   int	i;
 
+  (void)(cmd);
   i = 0;
   my_Send(Serv->socket_service, HELPMSG, strlen(HELPMSG));
   while (cmd_locale[i].cmdServ)

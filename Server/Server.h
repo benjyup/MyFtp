@@ -5,7 +5,7 @@
 #ifndef FTP_SERVER_H
 #define FTP_SERVER_H
 
-#include "Tools.h"
+#include "Commande.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -55,22 +55,29 @@ typedef struct		s_Server
 }			t_Server;
 
 t_Server		*init();
+Commande		*initCmd();
 void			initServ(t_Server *Serv, char **av);
 void			kill_zombie();
 void			SocketError(t_Server *Serv);
-void			Serveur_put(char *nomFichier, t_Server *Serv);
-void			Serveur_get(char *nomFichier, t_Server *Serv);
 void			Fermer_serveur();
 char			*get_next_line(int fd);
-void			my_Ls(t_Server *Serv, Commande_Locale *cmd_locale);
-void			my_Help(t_Server *Serv, Commande_Locale *cmd_locale);
-void			my_Pwd(t_Server *Serv, Commande_Locale *cmd_locale);
+void			my_Ls(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Help(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Pwd(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
 int			my_User(t_Server *Serv, Commande *cmd);
 int			my_Pass(t_Server *Serv, Commande *cmd);
 void			my_Send(int s, const void *msg, size_t len);
-void			my_UserMsg(t_Server *Serv, Commande_Locale *cmd_locale);
-void			my_PassMsg(t_Server *Serv, Commande_Locale *cmd_locale);
-void			my_Quit(t_Server *Serv, Commande_Locale *cmd_locale);
+void			my_UserMsg(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_PassMsg(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Quit(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
 void			my_QuitBefore(t_Server *Serv);
+void			my_Noop(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Cwd(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Cdup(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Dele(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Passv(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Port(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Stor(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
+void			my_Retr(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd);
 
 #endif //FTP_SERVER_H

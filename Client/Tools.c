@@ -55,6 +55,7 @@ Commande	*analyseCommande(char *ligne)
 	  cmd->commande = (cmd->commande) + 1;
 	}
     }
+  printf("ANALYSECOMMANDE : %s\n", cmd->commande);
   return (cmd);
 }
 
@@ -63,12 +64,12 @@ int	rcvControl(int sock)
   int	ctr;
   char	txt[MAX_ERREUR];
 
-  if (read(sock, &ctr, sizeof(int)) < 0)
+  if (read(sock, &ctr, sizeof(int)) == -1)
     {
       perror("Read socket control");
       exit(7);
     }
-  if (read(sock , &txt, MAX_ERREUR) < 0)
+  if (read(sock , &txt, MAX_ERREUR) == -1)
     {
       perror("Read socket control");
       exit(7);
@@ -81,7 +82,8 @@ int	rcvControl(int sock)
 void	sendControl(int ctr, char *txt, int sock)
 {
   write(sock, &ctr, sizeof(int));
-  write(sock, txt, MAX_ERREUR);
+  printf("%s", txt);
+  write(sock, txt, sizeof(txt));
 }
 
 void	execLocal(Commande *cmd)
@@ -91,13 +93,13 @@ void	execLocal(Commande *cmd)
   pid = 0;
   if ((pid = fork()) == 0)
     {
-      if (strcmp(cmd->commande,"ls") == 0)
-	execlp(cmd->commande,cmd->commande,NULL);
-      else if (strcmp(cmd->commande,"pwd") == 0)
-	  execlp(cmd->commande,cmd->commande,NULL);
-	else if (strcmp(cmd->commande,"help") == 0)
+      if (strcmp(cmd->commande, "LIST") == 0)
+	execlp(cmd->commande, cmd->commande, NULL);
+      else if (strcmp(cmd->commande, "pwd") == 0)
+	  execlp(cmd->commande, cmd->commande, NULL);
+	else if (strcmp(cmd->commande, "help") == 0)
 	    help();
-	  else if (strcmp(cmd->commande,"cd") == 0)
+	  else if (strcmp(cmd->commande, "cd") == 0)
 	      chdir(cmd->param1);
     }
   wait(&pid);
@@ -107,7 +109,7 @@ int	idCommande(Commande *cmd)
 {
   if (cmd->commande == NULL)
     return (0);
-  else if (strcmp(cmd->commande, "ls") == 0)
+  else if (strcmp(cmd->commande, "LIST") == 0)
       return (1);
     else if (strcmp(cmd->commande, "pwd") == 0)
 	return (1);
@@ -121,7 +123,7 @@ int	idCommande(Commande *cmd)
 
 int	execDistant(Commande *cmd, int sock)
 {
-  if (strcmp(cmd->commande, "ls") == 0)
+  if (strcmp(cmd->commande, "LIST") == 0)
     return execDistantLs(sock);
   else if (strcmp(cmd->commande, "pwd") == 0)
       return execDistantPwd(sock);
@@ -154,6 +156,8 @@ int			execDistantLs(int sock)
   struct dirent		*dansRep;
   char			buf[MAX_SYSTEM];
 
+
+  printf("||2||");
   if ((rep = opendir(".")) == NULL)
     {
       perror("Opendir Ls");
@@ -165,6 +169,7 @@ int			execDistantLs(int sock)
       perror("Readdir Ls");
       return (0);
     }
+  printf("||2||");
   while (dansRep != NULL)
     {
       fflush(stdout);
@@ -176,6 +181,7 @@ int			execDistantLs(int sock)
 	  return (0);
 	}
     }
+  printf("||3||");
   printf("LS donne :%s\n", buf);
   if ((write(sock, buf, MAX_SYSTEM)) < 0)
     {
@@ -204,6 +210,7 @@ int	execDistantPwd(int sock)
 void	help()
 {
   fflush(stdout);
+  printf("Bordel\n");
   printf("Commandes disponibles : \n");
   printf("| Local | Distant |\n");
   printf("|-----------------|\n");

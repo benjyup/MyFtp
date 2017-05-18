@@ -4,10 +4,11 @@
 
 
 #include "Server.h"
-#include "Tools.h"
+#include "Commande.h"
 
-void	my_Quit(t_Server *Serv, Commande_Locale *cmd_locale)
+void	my_Quit(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
+  (void)(cmd);
   (void)(cmd_locale);
   printf("Recu message QUIT\n");
   fflush(stdout);

@@ -3,7 +3,7 @@
 //
 
 #include "Server.h"
-#include "Tools.h"
+#include "Commande.h"
 
 int	my_Pass(t_Server *Serv, Commande *cmd)
 {
@@ -26,8 +26,9 @@ int	my_Pass(t_Server *Serv, Commande *cmd)
       }
 }
 
-void	my_PassMsg(t_Server *Serv, Commande_Locale *cmd_locale)
+void	my_PassMsg(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
   (void)(cmd_locale);
+  (void)(cmd);
   my_Send(Serv->socket_service, ALREADYLOG, strlen(ALREADYLOG));
 }

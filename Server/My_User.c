@@ -3,7 +3,7 @@
 //
 
 #include "Server.h"
-#include "Tools.h"
+#include "Commande.h"
 
 int	my_User(t_Server *Serv, Commande *cmd)
 {
@@ -26,8 +26,9 @@ int	my_User(t_Server *Serv, Commande *cmd)
   return (0);
 }
 
-void	my_UserMsg(t_Server *Serv, Commande_Locale *cmd_locale)
+void	my_UserMsg(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
+  (void)(cmd);
   (void)(cmd_locale);
   my_Send(Serv->socket_service, CHANGEUSER, strlen(CHANGEUSER));
 }

@@ -2,7 +2,7 @@
 // Created by peixot_b on 16/05/17.
 //
 
-#include "Tools.h"
+#include "Commande.h"
 #include "Server.h"
 
 struct sigaction	old_tuer;
@@ -34,6 +34,17 @@ t_Server	*init()
   return (Serv);
 }
 
+Commande	*initCmd()
+{
+  Commande	*cmd;
+
+  cmd = malloc(sizeof(*cmd));
+  cmd->param1 = NULL;
+  cmd->commande = NULL;
+  cmd->local = 0;
+  return (cmd);
+}
+
 void		initServ(t_Server *Serv, char **av)
 {
   if ((Serv->socket_RV = socket(AF_INET, SOCK_STREAM, 0)) == -1)
@@ -50,6 +61,11 @@ void		initServ(t_Server *Serv, char **av)
   if ((bind(Serv->socket_RV, (const struct sockaddr *)&Serv->adresseRV, Serv->lgadresseRV)) == -1){
       perror("bind");
       exit(3);
+    }
+  if (chdir(Serv->pwd) == -1)
+    {
+      perror("Le dossier n'existe pas.");
+      exit(6);
     }
   if (listen(Serv->socket_RV, 10) == -1)
     {

@@ -6,12 +6,11 @@
 #include	<unistd.h>
 #include	<stdlib.h>
 #include	"Server.h"
-
-#define BUFF_SIZE 1000
+#include	"Commande.h"
 
 static int	begin;
 
-void	*xmalloc(int size)
+void	*Checkmalloc(int size)
 {
   void	*p;
 
@@ -21,7 +20,7 @@ void	*xmalloc(int size)
   return (p);
 }
 
-int     xread(int id_open, void *buffer, int nbytes)
+int     Checkread(int id_open, void *buffer, int nbytes)
 {
   int   nb;
 
@@ -37,7 +36,7 @@ static char	*add_line(char *line, char *buff, int pos)
   char	*rest;
 
   size = (line ? strlen(line) : 0) + pos;
-  rest = xmalloc(size + 1);
+  rest = Checkmalloc(size + 1);
   if (line)
     {
       strncpy(rest, line, size - pos);
@@ -51,17 +50,17 @@ static char	*add_line(char *line, char *buff, int pos)
 
 char		*get_next_line(int fd)
 {
-  static int	nbread;
-  static char	buff[BUFF_SIZE];
-  char		*line;
   int		pos;
+  static int	nbread;
+  char		*line;
+  static char	buff[BUFSIZE];
 
   for (line = 0, pos = 0; ; pos++)
     {
       if (begin >= nbread)
 	{
 	  begin = 0;
-	  if (!(nbread = xread(fd, buff, BUFF_SIZE)))
+	  if (!(nbread = Checkread(fd, buff, BUFSIZE)))
 	    return (line);
 	  pos = 0;
 	}

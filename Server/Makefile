@@ -11,7 +11,6 @@ DIR	= ../
 RM	= rm -f
 
 SRCS	= ./Server.c \
-	  ./Tools.c  \
 	  ./get_next_line.c \
 	  ./My_Ls.c \
 	  ./My_Help.c \
@@ -21,7 +20,15 @@ SRCS	= ./Server.c \
 	  ./My_Quit.c \
 	  ./My_Send.c \
 	  ./Init.c \
-	  ./Error.c
+	  ./Error.c \
+	  ./My_Noop.c \
+	  ./My_Cwd.c \
+	  ./My_Cdup.c \
+	  ./My_Dele.c \
+	  ./My_Passv.c \
+	  ./My_Port.c \
+	  ./My_Stor.c \
+	  ./My_Retr.c
 
 OBJS	= $(SRCS:.c=.o)
 
