@@ -53,19 +53,20 @@ void		initServ(t_Server *Serv, char **av)
       exit(1);
     }
   Serv->pwd = av[2];
+  if (chdir(Serv->pwd) == -1)
+    {
+      perror("Le dossier n'existe pas.");
+      exit(6);
+    }
   Serv->port = (unsigned short)atoi(av[1]);
   Serv->adresseRV.sin_family = AF_INET;
   Serv->adresseRV.sin_port = htons(Serv->port);
   Serv->adresseRV.sin_addr.s_addr = htonl(INADDR_ANY);
   Serv->lgadresseRV = sizeof(Serv->adresseRV);
-  if ((bind(Serv->socket_RV, (const struct sockaddr *)&Serv->adresseRV, Serv->lgadresseRV)) == -1){
+  if ((bind(Serv->socket_RV, (const struct sockaddr *)&Serv->adresseRV, Serv->lgadresseRV)) == -1)
+    {
       perror("bind");
       exit(3);
-    }
-  if (chdir(Serv->pwd) == -1)
-    {
-      perror("Le dossier n'existe pas.");
-      exit(6);
     }
   if (listen(Serv->socket_RV, 10) == -1)
     {

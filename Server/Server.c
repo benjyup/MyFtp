@@ -59,14 +59,14 @@ void	myLoop(t_Server *Serv, Commande *cmd, Commande_Locale *cmd_locale)
   connect = false;
   while (TRUE)
     {
-      printf("CONNEXION PRETE....\n");
+      printf("SERVER READY\n");
       fflush(stdout);
       Serv->lgadresseClient = sizeof(Serv->adresseClient);
       if ((Serv->socket_service = accept(Serv->socket_RV, (struct sockaddr *)&Serv->adresseClient, &Serv->s_in_size)) == -1
 	  && errno == EINTR)
 	continue ;
       SocketError(Serv);
-      printf("Connexion Acceptee\n");
+      printf("USER CONNECTED\n");
       fflush(stdout);
       if (fork() == 0)
 	{
