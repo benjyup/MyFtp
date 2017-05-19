@@ -10,9 +10,7 @@ void	my_Cdup(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
   (void)(cmd_locale);
   (void)(cmd);
   if (chdir(Serv->pwd) == -1)
-    {
-      perror("Le dossier n'existe pas.");
-      exit(6);
-    }
-  my_Send(Serv->socket_service, COMOK, sizeof(COMOK));
+    my_Send(Serv->socket_service, COMOK, sizeof(COMOK));
+  else
+    my_Send(Serv->socket_service, ERRDIR, sizeof(ERRDIR));
 }

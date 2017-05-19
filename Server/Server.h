@@ -37,6 +37,9 @@
 #define ALREADYLOG	"230 Already logged in.\n"
 #define CHANGEUSER	"530 Can't change from guest user.\n"
 #define USERFIRST	"503 Login with USER first.\n"
+#define	ERRDIR		"550 Failed to change directory."
+#define	FILEMISS	"450 Requested file action not taken."
+#define	LOCALERR	"451 Requested action aborted: local error in processing."
 
 typedef struct		s_Server
 {

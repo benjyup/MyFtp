@@ -18,7 +18,7 @@ int	LoopCommand(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
   printf("COMMANDE : %s\n", cmd->commande);
   while (cmd_locale[i].cmdServ != 0)
     {
-      if (strncmp(cmd_locale[i].cmdServ, cmd->commande, cmd_locale[i].len) == 0)
+      if (strncasecmp(cmd_locale[i].cmdServ, cmd->commande, cmd_locale[i].len) == 0)
 	{
 	  cmd_locale[i].fptr(Serv, cmd_locale, cmd);
 	  break ;
@@ -33,18 +33,18 @@ int	LoopConnection(t_Server *Serv, Commande *cmd)
   bool	err;
 
   err = false;
-  if (strcmp("USER", cmd->commande) == 0)
+  if (strncasecmp("USER", cmd->commande, 4) == 0)
     {
       my_User(Serv, cmd);
       err = true;
     }
-  else if (strcmp("PASS", cmd->commande) == 0)
+  else if (strncasecmp("PASS", cmd->commande, 4) == 0)
       {
 	if (my_Pass(Serv, cmd) == 1)
 	  return (1);
 	err = true;
       }
-    else if (strcmp("QUIT", cmd->commande) == 0)
+    else if (strncasecmp("QUIT", cmd->commande, 4) == 0)
 	my_QuitBefore(Serv);
   if (strlen(cmd->commande) >= 1 && (!err))
     my_Send(Serv->socket_service, PLSLOGIN, strlen(PLSLOGIN));
