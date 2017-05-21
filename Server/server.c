@@ -5,7 +5,7 @@
 ** Login   <benjamin.peixoto@epitech.eu>
 ** 
 ** Started on  Sun May 21 23:29:44 2017 Benjamin
-** Last update Sun May 21 23:29:45 2017 Benjamin
+** Last update Sun May 21 23:37:18 2017 Benjamin
 */
 
 #include "server.h"
@@ -24,7 +24,8 @@ int	LoopCommand(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
   printf("COMMANDE : %s\n", cmd->commande);
   while (cmd_locale[i].cmdServ != 0)
     {
-      if (strncasecmp(cmd_locale[i].cmdServ, cmd->commande, cmd_locale[i].len) == 0)
+      if (strncasecmp(cmd_locale[i].cmdServ, cmd->commande,
+		      cmd_locale[i].len) == 0)
 	{
 	  cmd_locale[i].fptr(Serv, cmd_locale, cmd);
 	  break ;

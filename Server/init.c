@@ -5,7 +5,7 @@
 ** Login   <benjamin.peixoto@epitech.eu>
 ** 
 ** Started on  Sun May 21 23:32:05 2017 Benjamin
-** Last update Sun May 21 23:32:14 2017 Benjamin
+** Last update Sun May 21 23:41:02 2017 Benjamin
 */
 
 #include "commande.h"
@@ -52,8 +52,7 @@ void		initServ(t_Server *Serv, char **av)
       perror("socket");
       exit(1);
     }
-  Serv->pwd = av[2];
-  if (chdir(Serv->pwd) == -1)
+  if (chdir(Serv->pwd) == -1 || (Serv->pwd = av[2]) == NULL)
     {
       perror("Le dossier n'existe pas.");
       exit(6);
@@ -63,14 +62,12 @@ void		initServ(t_Server *Serv, char **av)
   Serv->adresseRV.sin_port = htons(Serv->port);
   Serv->adresseRV.sin_addr.s_addr = htonl(INADDR_ANY);
   Serv->lgadresseRV = sizeof(Serv->adresseRV);
-  if ((bind(Serv->socket_RV, (const struct sockaddr *)&Serv->adresseRV, Serv->lgadresseRV)) == -1)
+  if ((bind(Serv->socket_RV, (const struct sockaddr *)&Serv->adresseRV,
+	    Serv->lgadresseRV)) == -1)
     {
       perror("bind");
       exit(3);
     }
   if (listen(Serv->socket_RV, 10) == -1)
-    {
-      perror("listen");
-      exit(4);
-    }
+    exit(4);
 }
