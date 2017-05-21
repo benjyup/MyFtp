@@ -5,7 +5,7 @@
 ** Login   <benjamin.peixoto@epitech.eu>
 ** 
 ** Started on  Sun May 21 23:33:13 2017 Benjamin
-** Last update Sun May 21 23:33:14 2017 Benjamin
+** Last update Sun May 21 23:42:02 2017 Benjamin
 */
 
 #include "server.h"
@@ -21,7 +21,8 @@ void	my_Help(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
   while (cmd_locale[i].cmdServ)
     {
       my_Send(Serv->socket_service, " ", 1);
-      my_Send(Serv->socket_service, cmd_locale[i].cmdServ, strlen(cmd_locale[i].cmdServ));
+      my_Send(Serv->socket_service, cmd_locale[i].cmdServ,
+	      strlen(cmd_locale[i].cmdServ));
       i++;
     }
   my_Send(Serv->socket_service, "\n", 1);
