@@ -40,6 +40,8 @@
 #define	ERRDIR		"550 Failed to change directory.\r\n"
 #define	FILEMISS	"450 Requested file action not taken.\r\n"
 #define	LOCALERR	"451 Requested action aborted: local error in processing.\r\n"
+#define UNKNOWCOM	"500 Unknown command.\r\n"
+#define USEPASV		"425 Use PORT or PASV first.\r\n"
 
 typedef struct		s_Server
 {
@@ -55,6 +57,7 @@ typedef struct		s_Server
   socklen_t		s_in_size;
   struct sigaction	tuer;
   int			tmp;
+  int			passv;
 }			t_Server;
 
 t_Server		*init();

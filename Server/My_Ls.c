@@ -16,6 +16,11 @@ void	my_Ls(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
     my_Send(Serv->socket_service, LOCALERR, strlen(LOCALERR));
   else
     {
+      if (Serv->passv == 0)
+	{
+	  my_Send(Serv->socket_service, USEPASV, strlen(USEPASV));
+	  return ;
+	}
       my_Send(Serv->socket_service, FILESTAT, strlen(FILESTAT));
       while (fgets(freadbuff, BUFSIZE, ls) != NULL)
 	{

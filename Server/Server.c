@@ -25,6 +25,8 @@ int	LoopCommand(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 	}
       i++;
     }
+  if (i == 16)
+    return (1);
   return (0);
 }
 
@@ -88,7 +90,10 @@ void	myLoop(t_Server *Serv, Commande *cmd, Commande_Locale *cmd_locale)
 		    connect = true;
 		}
 	      else
-		LoopCommand(Serv, cmd_locale, cmd);
+		{
+		  if (LoopCommand(Serv, cmd_locale, cmd) == 1)
+		    my_Send(Serv->socket_service, UNKNOWCOM, sizeof(UNKNOWCOM));
+		}
 	      free(cmd->commande);
 	    }
 	}
@@ -112,7 +117,7 @@ int			main(int ac, char **av)
 		  {"CDUP", my_Cdup, 4},
 		  {"QUIT", my_Quit, 4},
 		  {"DELE", my_Dele, 4},
-		  {"PASSV", my_Passv, 5},
+		  {"PASV", my_Passv, 4},
 		  {"STOR", my_Stor, 4},
 		  {"PORT", my_Port, 4},
 		  {"RETR", my_Retr, 4}

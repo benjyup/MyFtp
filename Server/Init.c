@@ -28,6 +28,7 @@ t_Server	*init()
   Serv = malloc(sizeof(*Serv));
   Serv->s_in_size = sizeof(Serv->adresseClient);
   Serv->tmp = 0;
+  Serv->passv = 0;
   memset(&Serv->tuer, 0, sizeof(Serv->tuer));
   Serv->tuer.sa_handler = &killServeur;
   sigaction(SIGINT, &Serv->tuer, &old_tuer);

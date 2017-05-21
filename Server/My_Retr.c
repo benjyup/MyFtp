@@ -10,5 +10,8 @@ void	my_Retr(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
   (void)(Serv);
   (void)(cmd_locale);
   (void)(cmd);
-  my_Send(Serv->socket_service, FILESTAT, sizeof(FILESTAT));
+  if (Serv->passv == 0)
+    my_Send(Serv->socket_service, USEPASV, strlen(USEPASV));
+  else
+    my_Send(Serv->socket_service, FILESTAT, sizeof(FILESTAT));
 }

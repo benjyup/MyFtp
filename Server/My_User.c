@@ -13,7 +13,7 @@ int	my_User(t_Server *Serv, Commande *cmd)
       my_Send(Serv->socket_service, PLSLOGIN, strlen(PLSLOGIN));
       return (0);
     }
-  if (strcmp(cmd->param1, "anonymous") == 0)
+  if (strcasecmp(cmd->param1, "anonymous") == 0)
     {
       Serv->tmp = 1;
       my_Send(Serv->socket_service, USERNAMEOK, sizeof(USERNAMEOK));
