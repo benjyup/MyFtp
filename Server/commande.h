@@ -2,8 +2,8 @@
 // Created by peixot_b on 12/05/17.
 //
 
-#ifndef FTP_TOOLS_H
-#define FTP_TOOLS_H
+#ifndef COMMANDE_H_
+#define COMMANDE_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,12 +19,12 @@
 #include <dirent.h>
 #include <sys/wait.h>
 
-#define BUFSIZE 1024 //Taille du buffer pour les transfert
-#define MAX_COMMANDE 256 //Taille maximum de la commande
-#define MAX_ERREUR 256 //Taille maximum des messages de control
-#define MAX_SYSTEM 1024 //taille maximum des reponses commande systeme distants
+#define BUFSIZE		1024
+#define MAX_COMMANDE	256
+#define MAX_ERREUR	256
+#define MAX_SYSTEM	1024
 
-typedef struct s_Commande_Local
+typedef struct	s_Commande_Local
 {
   char		*cmdServ;
   void		(*fptr)();
@@ -38,4 +38,4 @@ typedef struct	s_Commande
   int		local;
 }		Commande;
 
-#endif //FTP_TOOLS_H
+#endif //COMMANDE_H_

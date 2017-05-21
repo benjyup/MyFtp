@@ -10,25 +10,25 @@ DIR	= ../
 
 RM	= rm -f
 
-SRCS	= ./Server.c \
+SRCS	= ./server.c \
 	  ./get_next_line.c \
-	  ./My_Ls.c \
-	  ./My_Help.c \
-	  ./My_Pwd.c \
-	  ./My_User.c \
-	  ./My_Pass.c \
-	  ./My_Quit.c \
-	  ./My_Send.c \
-	  ./Init.c \
-	  ./Error.c \
-	  ./My_Noop.c \
-	  ./My_Cwd.c \
-	  ./My_Cdup.c \
-	  ./My_Dele.c \
-	  ./My_Passv.c \
-	  ./My_Port.c \
-	  ./My_Stor.c \
-	  ./My_Retr.c
+	  ./my_ls.c \
+	  ./my_help.c \
+	  ./my_pwd.c \
+	  ./my_user.c \
+	  ./my_pass.c \
+	  ./my_quit.c \
+	  ./my_send.c \
+	  ./init.c \
+	  ./error.c \
+	  ./my_noop.c \
+	  ./my_cwd.c \
+	  ./my_cdup.c \
+	  ./my_dele.c \
+	  ./my_passv.c \
+	  ./my_port.c \
+	  ./my_stor.c \
+	  ./my_retr.c
 
 OBJS	= $(SRCS:.c=.o)
 

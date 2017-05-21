@@ -1,9 +1,15 @@
-//
-// Created by peixot_b on 16/05/17.
-//
+/*
+** my_pass.c for my_pass in /home/peixot_b/Epitech/Tek2/PSU/FTP/PSU_2016_myftp/Server
+** 
+** Made by Benjamin
+** Login   <benjamin.peixoto@epitech.eu>
+** 
+** Started on  Sun May 21 23:30:43 2017 Benjamin
+** Last update Sun May 21 23:30:44 2017 Benjamin
+*/
 
-#include "Server.h"
-#include "Commande.h"
+#include "server.h"
+#include "commande.h"
 
 int	my_Pass(t_Server *Serv, Commande *cmd)
 {

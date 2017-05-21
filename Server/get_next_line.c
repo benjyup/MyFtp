@@ -1,12 +1,18 @@
-//
-// Created by peixot_b on 15/05/17.
-//
+/*
+** get_next_line.c for get_next_line in /home/peixot_b/Epitech/Tek2/PSU/FTP/PSU_2016_myftp/Server
+** 
+** Made by Benjamin
+** Login   <benjamin.peixoto@epitech.eu>
+** 
+** Started on  Sun May 21 23:13:18 2017 Benjamin
+** Last update Sun May 21 23:21:18 2017 Benjamin
+*/
 
-#include	<string.h>
-#include	<unistd.h>
-#include	<stdlib.h>
-#include	"Server.h"
-#include	"Commande.h"
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "server.h"
+#include "commande.h"
 
 static int	begin;
 
@@ -20,9 +26,9 @@ void	*Checkmalloc(int size)
   return (p);
 }
 
-int     Checkread(int id_open, void *buffer, int nbytes)
+int	Checkread(int id_open, void *buffer, int nbytes)
 {
-  int   nb;
+  int	nb;
 
   nb = read(id_open, buffer, nbytes);
   if (nb == -1)

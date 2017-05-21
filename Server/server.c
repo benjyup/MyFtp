@@ -1,9 +1,15 @@
-//
-// Created by peixot_b on 12/05/17.
-//
+/*
+** server.c for server in /home/peixot_b/Epitech/Tek2/PSU/FTP/PSU_2016_myftp/Server
+** 
+** Made by Benjamin
+** Login   <benjamin.peixoto@epitech.eu>
+** 
+** Started on  Sun May 21 23:29:44 2017 Benjamin
+** Last update Sun May 21 23:29:45 2017 Benjamin
+*/
 
-#include "Server.h"
-#include "Commande.h"
+#include "server.h"
+#include "commande.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,7 +19,7 @@
 int	LoopCommand(t_Server *Serv, Commande_Locale *cmd_locale, Commande *cmd)
 {
   int	i;
-
+  
   i = 0;
   printf("COMMANDE : %s\n", cmd->commande);
   while (cmd_locale[i].cmdServ != 0)
@@ -53,19 +59,49 @@ int	LoopConnection(t_Server *Serv, Commande *cmd)
   return (0);
 }
 
-void	myLoop(t_Server *Serv, Commande *cmd, Commande_Locale *cmd_locale)
+void	receiveLine(t_Server *Serv, Commande *cmd,
+		    Commande_Locale *cmd_locale, char *ligne)
 {
   bool	connect;
-  char	*ligne;
 
   connect = false;
+  while((ligne = get_next_line(Serv->socket_service)) != 0)
+    {
+      if (ligne[strlen(ligne) - 1] == '\r')
+	ligne[strlen(ligne) - 1] = '\0';
+      if (strlen(ligne) >= 2)
+	{
+	  cmd->commande = ligne;
+	  cmd->param1 = strtok(ligne, " ");
+	  cmd->param1 = strtok(NULL, " ");
+	}
+      if (!connect)
+	{
+	  if (LoopConnection(Serv, cmd) == 1)
+	    connect = true;
+	}
+      else
+	{
+	  if (LoopCommand(Serv, cmd_locale, cmd) == 1)
+	    my_Send(Serv->socket_service, UNKNOWCOM, sizeof(UNKNOWCOM));
+	}
+      free(cmd->commande);
+    }
+}
+
+void	myLoop(t_Server *Serv, Commande *cmd, Commande_Locale *cmd_locale)
+{
+  char	*ligne;
+
+  ligne = NULL;
   while (TRUE)
     {
       printf("SERVER READY\n");
       fflush(stdout);
       Serv->lgadresseClient = sizeof(Serv->adresseClient);
-      if ((Serv->socket_service = accept(Serv->socket_RV, (struct sockaddr *)&Serv->adresseClient, &Serv->s_in_size)) == -1
-	  && errno == EINTR)
+      if ((Serv->socket_service = accept(Serv->socket_RV,
+					 (struct sockaddr *)&Serv->adresseClient,
+					 &Serv->s_in_size)) == -1 && errno == EINTR)
 	continue ;
       SocketError(Serv);
       printf("USER CONNECTED\n");
@@ -74,28 +110,7 @@ void	myLoop(t_Server *Serv, Commande *cmd, Commande_Locale *cmd_locale)
 	{
 	  close(Serv->socket_RV);
 	  my_Send(Serv->socket_service, SERVREADYUSER, sizeof(SERVREADYUSER));
-	  while((ligne = get_next_line(Serv->socket_service)) != 0)
-	    {
-	      if (ligne[strlen(ligne) - 1] == '\r')
-		ligne[strlen(ligne) - 1] = '\0';
-	      if (strlen(ligne) >= 2)
-		{
-		  cmd->commande = ligne;
-		  cmd->param1 = strtok(ligne, " ");
-		  cmd->param1 = strtok(NULL, " ");
-		}
-	      if (!connect)
-		{
-		  if (LoopConnection(Serv, cmd) == 1)
-		    connect = true;
-		}
-	      else
-		{
-		  if (LoopCommand(Serv, cmd_locale, cmd) == 1)
-		    my_Send(Serv->socket_service, UNKNOWCOM, sizeof(UNKNOWCOM));
-		}
-	      free(cmd->commande);
-	    }
+	  receiveLine(Serv, cmd, cmd_locale, ligne);
 	}
       close(Serv->socket_service);
     }

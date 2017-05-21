@@ -1,18 +1,17 @@
-//
-// Created by peixot_b on 16/05/17.
-//
+/*
+** init.c for init in /home/peixot_b/Epitech/Tek2/PSU/FTP/PSU_2016_myftp/Server
+** 
+** Made by Benjamin
+** Login   <benjamin.peixoto@epitech.eu>
+** 
+** Started on  Sun May 21 23:32:05 2017 Benjamin
+** Last update Sun May 21 23:32:14 2017 Benjamin
+*/
 
-#include "Commande.h"
-#include "Server.h"
+#include "commande.h"
+#include "server.h"
 
 struct sigaction	old_tuer;
-
-
-void	kill_zombie()
-{
-  printf("terminaison d'un processus de service\n");
-  wait(NULL);
-}
 
 void	killServeur()
 {

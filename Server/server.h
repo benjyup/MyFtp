@@ -5,7 +5,7 @@
 #ifndef FTP_SERVER_H
 #define FTP_SERVER_H
 
-#include "Commande.h"
+#include "commande.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
