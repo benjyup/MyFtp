@@ -1,3 +1,13 @@
+##
+## Makefile for Makefile in /home/peixot_b/Epitech/Tek2/PSU/FTP/PSU_2016_myftp/Server
+## 
+## Made by Benjamin
+## Login   <benjamin.peixoto@epitech.eu>
+## 
+## Started on  Sun May 21 23:43:00 2017 Benjamin
+## Last update Sun May 21 23:43:01 2017 Benjamin
+##
+
 NAME	= server
 
 RMNAME	= ../server
